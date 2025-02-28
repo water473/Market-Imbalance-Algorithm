@@ -1,4 +1,4 @@
-# Simple Fair Value Gap (FVG) Trading Strategy
+# Market Imbalance Trading Algorithm/Strategy
 
 This repository contains an automated trading algorithm based on market imbalances—what I call a **Fair Value Gap (FVG)**. The strategy is implemented in Python and uses historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) to detect these imbalances. It then generates trading signals for both bullish and bearish FVGs, backtests the strategies, and compares the performance to a buy-and-hold benchmark.
 
