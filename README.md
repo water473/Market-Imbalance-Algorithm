@@ -1,6 +1,8 @@
 # Market Imbalance Trading Algorithm/Strategy
 
-Financial markets are filled with complexities and noise, where price action can seem completely random. Yet, beneath the surface, we can often observe price imbalances — moments when price moves quickly through a low-liquitidy zone. These  discrepancies, which traders have come to term **Fair Value Gaps (FVGs)**, offer a unique window into this supposed market inefficiency. In this project I have attempted to use python to model a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and generate trading signals for both bullish and bearish Fair Value Gaps, backtests the strategies, and compare the performance to a buy-and-hold benchmark.
+Financial markets are filled with complexities and noise, where price action can seem completely random. Yet, beneath the surface, we can often observe price imbalances — moments when price moves quickly through a low-liquitidy zone. These  discrepancies, which traders have come to term **Fair Value Gaps (FVGs)**, offer a unique window into this supposed market inefficiency.
+
+In this project I have attempted to use python to create a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and python libraries such as pandas and numpy to generate trading signals for both bullish and bearish Fair Value Gaps, backtests the strategies, and compare the performance to a buy-and-hold benchmark.
 
 ## Table of Contents
 
@@ -70,7 +72,8 @@ from SimpleFVG import SimpleFVG
 # Initialize the strategy for SPY
 strategy = SimpleFVG(ticker="SPY", start="2010-01-01", end="2020-01-01", gap_size=10)
 ```
-Running the Bullish FVG Backtest
+### Running the Bullish FVG Backtest
+
 To run a bullish backtest (entering long when a bullish FVG is identified and holding for a specified number of days):
 
 ```
@@ -78,7 +81,8 @@ To run a bullish backtest (entering long when a bullish FVG is identified and ho
 strategy.bullish_fvg_backtest(holding_days=2)
 ```
 
-Running the Bearish FVG Backtest
+### Running the Bearish FVG Backtest
+
 The bearish strategy waits up to 3 days for a price retracement before entering a short position, then holds for a specified number of days:
 
 ```
@@ -86,7 +90,8 @@ The bearish strategy waits up to 3 days for a price retracement before entering 
 strategy.bearish_fvg_backtest(holding_days=2, wait_days=3)
 ```
 
-Viewing the Data
+### Viewing the Data
+
 Retrieve the processed dataset to further analyze or visualize it:
 
 ```
