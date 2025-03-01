@@ -67,7 +67,7 @@ Fair value gaps tie into the overall concept of what some traders called "smart 
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/yourusername/Market-Imbalance-Algorithm](https://github.com/water473/Market-Imbalance-Algorithm.git)
+    git clone https://github.com/water473/Market-Imbalance-Algorithm.git
     cd Market-Imbalance-Algorithm
     ```
 
