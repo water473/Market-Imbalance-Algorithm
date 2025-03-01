@@ -1,8 +1,10 @@
 # Market Imbalance Trading Algorithm/Strategy
 
-Financial markets are filled with complexities and noise, where price action can seem completely random. Yet, beneath the surface, we can often observe price imbalances — moments when price moves quickly through an area with low liquidity. These  discrepancies, which traders have come to term **Fair Value Gaps (FVGs)**, offer a unique window into this supposed market inefficiency.
+Financial markets are filled with complexities and noise, where price action can seem completely random. Yet, beneath the surface, we can often observe price imbalances — moments when price moves quickly through an area with low liquidity. These discrepancies, which traders have come to term **Fair Value Gaps (FVGs)**, offer a unique window into this supposed market inefficiency. 
 
-In this project I have attempted to use python to create a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and python libraries such as pandas and numpy to generate trading signals for both bullish and bearish Fair Value Gaps, backtests the strategies, and compare the performance to a buy-and-hold benchmark.
+In this project I have attempted to use python to create a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and python libraries such as pandas and numpy to generate trading signals for both bullish and bearish Fair Value Gaps, backtest the strategies, and compare the performance to a buy-and-hold benchmark.
+
+In the overview below, you'll find a clear, visual explanation of what a FVG is, making the concept accessible even to those new to stock charts and financial markets.
 
 ## Table of Contents
 
@@ -23,11 +25,32 @@ In this project I have attempted to use python to create a trading algorithm tha
 
 ## Overview
 
-The **Simple FVG** strategy aims to exploit market imbalances by identifying periods where recent price action suggests that the market has deviated from its “fair value.”  
-- **Bullish FVG:** A gap where the current candle’s low is significantly above the high of a candle two periods earlier.  
-- **Bearish FVG:** A gap where the current candle’s high is significantly below the low of a candle two periods earlier.
+This idea of imbalances is best implemented using the typical candlestick price chart for a stock or whichever market you would like to explore.
+
+Note: My **Simple FVG** strategy is mainly a retracement tool, meaning after we identify a fair value gap, ideally we would wait for price to retrace back into the gap before opening a position.
+
+Before understanding a fair value gap, it is essential to understand the classic candlestick charts that financial analysts and investors use. Pictured below is the Apple stock chart on the 1 minute timeframe:
+
+  ![image](https://github.com/user-attachments/assets/8307230a-6b5b-4a06-b2fa-c041ec8a73a1)
+Each red and green candlestick represents the the high, low, open, and close of Apple's share price during that specific timeframe, which in this case is 1 minute.
+
+  <img width="260" alt="image" src="https://github.com/user-attachments/assets/fd9453fc-89e3-496e-94fe-88e5f512dc13" />
+
+
+Now let's see what exactly a "fair value gap" is:
+- A fair value gap is a three candlestick pattern.
+  - **Bullish FVG:** A gap where the current candle’s low is above the high of a candle two periods earlier.
+    
+    <img width="227" alt="image" src="https://github.com/user-attachments/assets/32d67b3c-a8e5-4969-a67d-a8905887e027" />
+
+  - **Bearish FVG:** A gap where the current candle’s high is below the low of a candle two periods earlier.
+    
+    <img width="232" alt="image" src="https://github.com/user-attachments/assets/20264da8-4d9a-4088-927b-e4564436fd59" />
 
 For each signal, the algorithm enters a position and holds it for a predetermined period. In the bearish case, the strategy includes a waiting period for a retracement before entering a short position.
+
+### Why are these gaps important?
+Fair value gaps tie into the overall concept of what some traders called "smart money". Smart money represents large institutions that have the power to influence markets with their access to an extreme amount of capital. For conciseness, I won't explain all the details here, but the general idea is that a FVG forms because at that price range, there was a lack of orders, or "liquidity", to push price in the opposing direction. Price is likely to retrace into this zone and then continue further in the original direction.
 
 ## Features
 
@@ -43,8 +66,8 @@ For each signal, the algorithm enters a position and holds it for a predetermine
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/simple-fvg-trading.git
-    cd simple-fvg-trading
+    git clone https://github.com/yourusername/Market-Imbalance-Algorithm
+    cd Market-Imbalance-Algorithm
     ```
 
 2. **Create and activate a virtual environment:**
@@ -64,10 +87,10 @@ For each signal, the algorithm enters a position and holds it for a predetermine
 
 ### Initializing the Strategy
 
-Import and instantiate the `SimpleFVG` class with your desired parameters. For example, to analyze SPY from 2010 to 2020 with a gap threshold of 10 points:
+Import and instantiate the `FairValueGap` class with your desired parameters. For example, to analyze SPY from 2010 to 2020 with a gap threshold of 10 points:
 
-```
-from SimpleFVG import SimpleFVG
+```python
+from FairValueGap import SimpleFVG
 
 # Initialize the strategy for SPY
 strategy = SimpleFVG(ticker="SPY", start="2010-01-01", end="2020-01-01", gap_size=10)
@@ -76,7 +99,7 @@ strategy = SimpleFVG(ticker="SPY", start="2010-01-01", end="2020-01-01", gap_siz
 
 To run a bullish backtest (entering long when a bullish FVG is identified and holding for a specified number of days):
 
-```
+```python
 # Run bullish FVG backtest with a 2-day holding period
 strategy.bullish_fvg_backtest(holding_days=2)
 ```
@@ -85,7 +108,7 @@ strategy.bullish_fvg_backtest(holding_days=2)
 
 The bearish strategy waits up to 3 days for a price retracement before entering a short position, then holds for a specified number of days:
 
-```
+```python
 # Run bearish FVG backtest with a 2-day holding period and a 3-day waiting period
 strategy.bearish_fvg_backtest(holding_days=2, wait_days=3)
 ```
@@ -125,13 +148,32 @@ print(data.head())
 
 The backtest methods produce visual plots comparing the cumulative returns of the strategy with a buy-and-hold approach. For example, a plot might look like:
 
-...
+![image](https://github.com/user-attachments/assets/b5801d99-6ac6-4fca-b20b-8902afc3cd37) 
+
 
 Additionally, the terminal output provides key performance metrics:
 - Final cumulative returns
 - Percentage returns
 - Compound Annual Growth Rate (CAGR)
+For example, this would be outputed along with the above plot:
+```Bullish FVG found on these dates
+Price            gap
+Date                
+2010-09-02  1.922261
+2010-11-05  1.663085
+2010-12-02  1.509073
+2011-09-27  2.104410
+2011-10-24  1.539047
+...
+Final Buy and Hold Return: 6.812790315703157
+Final Strategy Return: 7.43361295699954
+Final Buy and Hold Percent Return: 581.28%
+Final Strategy Percent Return: 643.36%
+Buy-and-Hold CAGR: 13.66%
+Strategy CAGR: 14.32%
+```
 
+**I have included an ipynb file that shows examples of using the FairValueGap class!**
 ## Future Enhancements
 
 - **Vectorized Backtesting:** Replace loops with vectorized operations for improved performance.
