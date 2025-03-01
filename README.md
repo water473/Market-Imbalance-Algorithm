@@ -2,7 +2,7 @@
 
 Financial markets are filled with complexities and noise, where price action can seem completely random. Yet, beneath the surface, we can often observe price imbalances — moments when price moves quickly through an area with low liquidity. These discrepancies, which traders have come to term **Fair Value Gaps (FVGs)**, offer a unique window into this supposed market inefficiency. 
 
-In this project I have attempted to use python to create a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and python libraries such as pandas and numpy to generate trading signals for both bullish and bearish Fair Value Gaps, backtest the strategies, and compare the performance to a buy-and-hold benchmark.
+In this project I use python to create a trading algorithm that is based on these Fair Value Gaps. I use historical price data (downloaded via [yfinance](https://pypi.org/project/yfinance/)) and python libraries such as pandas and numpy to generate trading signals for both bullish and bearish Fair Value Gaps, backtest the strategies, and compare the performance to a buy-and-hold benchmark.
 
 In the overview below, you'll find a clear, visual explanation of what a FVG is, making the concept accessible even to those new to stock charts and financial markets.
 
