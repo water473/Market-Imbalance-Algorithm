@@ -2,7 +2,6 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 
-#Description...
 class SimpleFVG:
     def __init__(self, ticker, start, end, gap_size = 10):
         """
