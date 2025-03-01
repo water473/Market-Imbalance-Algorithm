@@ -18,6 +18,7 @@ In the overview below, you'll find a clear, visual explanation of what a FVG is,
   - [Viewing the Data](#viewing-the-data)
 - [How It Works](#how-it-works)
 - [Example Output](#example-output)
+- [Results](#results)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
 - [License](#license)
@@ -135,11 +136,11 @@ print(data.head())
 ### Trading Signals and Backtesting
 
 - **Entry Signals:**  
-  - For **Bullish FVG**, the strategy enters long immediately when the gap condition is met.
-  - For **Bearish FVG**, it waits for a retracement before entering short.
+  - For **Bullish FVG**, the strategy enters long immediately when the gap condition is met. This strategy only allows one position to be open at a time.
+  - For **Bearish FVG**, it waits for a retracement before entering short. This strategy also only allows one position to be open at a time.
 
 - **Holding Period:**  
-  Positions are held for a fixed number of days (e.g., 2 days) before exiting.
+  Positions are held for a fixed number of days (e.g., 2 days) before exiting and allowing another position to be opened.
 
 - **Return Calculations:**  
   Daily log returns are accumulated and exponentiated to yield cumulative returns, which are then compared with a buy-and-hold benchmark.
@@ -174,12 +175,25 @@ Strategy CAGR: 14.32%
 ```
 
 **I have included an ipynb file that shows examples of using the FairValueGap class!**
+
+## Results
+
+- These are just the baby steps of a full trading algorithm that focuses on this idea of imbalances, but backtesting has been fun and insightful. 
+  - When dealing with a trading algorithm, the goal is to have not only positive returns, but a return greater than some sort of benchmark, like for example the S&P 500. The reason for this is simply that if your algorithm yields let's say an 8% yearly return, but the S&P 500 averages 10%, there would be no reason to deploy the strategy. You would be better off buying and holding the S&P 500, taking on less risk.
+
+- What I have found is that with the correct parameters, the bullish fair value gap strategy I created can actually outperform the S&P 500 buy and hold benchmark on historical data. The example back test in the .ipynb file I provided yields a 14.32% compounded annual growth rate (CAGR) on the S&P 500 as opposed to 13.66% with the buy and hold benchmark. This is on daily price data from 2010 to 2025. Overall that is a return of over 60% more over the 10 year period.
+
+- The bearish fair value gap strategy has proven to be much less effective, and at the time I am writing this I haven't found parameters that make the strategy returns come even close to those of the benchmark.
+
+**Disclaimer**: It is important to note that even though a back test may yield positive returns, that is NOT an indication that the strategy is ready to be deployed on the live markets - due to many potential issues such as overfitting, it takes much more to be ready to deploy an algorithm live, but these are the first steps!
+
 ## Future Enhancements
 
 - **Vectorized Backtesting:** Replace loops with vectorized operations for improved performance.
 - **Advanced Risk Management:** Implement stop-loss, take-profit, and dynamic position sizing.
 - **Live Trading Integration:** Extend the algorithm for paper or live trading environments.
 - **Parameter Optimization:** Automate the tuning of gap thresholds, holding, and waiting periods.
+- **Strategy Combination:** Combine our bearish and bullish strategies to allow us to go long and short over time.
 
 ## Contributing
 
