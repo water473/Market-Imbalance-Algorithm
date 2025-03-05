@@ -194,6 +194,7 @@ Strategy CAGR: 14.32%
 - **Live Trading Integration:** Extend the algorithm for paper or live trading environments.
 - **Parameter Optimization:** Automate the tuning of gap thresholds, holding, and waiting periods.
 - **Strategy Combination:** Combine our bearish and bullish strategies to allow us to go long and short over time.
+- **Statistical Metrics** Calculate more metrics such as a Sharpe Ratio to analyze performance.
 
 ## Contributing
 
