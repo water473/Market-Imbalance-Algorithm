@@ -89,6 +89,15 @@ class SimpleFVG:
         print(f"Buy-and-Hold CAGR: {CAGR_bh * 100:.2f}%")
         print(f"Strategy CAGR: {CAGR_strategy * 100:.2f}%")
 
+         
+        # Calculate Sharpe Ratio for the strategy
+        # Assuming 'Daily Return' is the log return of the asset and we use the strategy position.
+        # We use the shifted position to simulate acting on the previous day's signal.
+        strategy_daily_returns = self.data["Daily Return"] * self.data["bullish_fvg_position"].shift(1)
+        # For simplicity, assume risk-free rate is 0.
+        sharpe_ratio = (strategy_daily_returns.mean() / strategy_daily_returns.std()) * np.sqrt(252)
+        print(f"Strategy Sharpe Ratio: {sharpe_ratio:.2f}")
+
     def bullish_fvg_backtest(self, holding_days):
         """
         Finds bullish fair value gaps and plots the returns on instant long entry and specified holding time.
@@ -162,6 +171,11 @@ class SimpleFVG:
 
         print(f"Buy-and-Hold CAGR: {CAGR_bh * 100:.2f}%")
         print(f"Strategy CAGR: {CAGR_strategy * 100:.2f}%")
+
+        # Calculate Sharpe Ratio for the strategy
+        strategy_daily_returns = self.data["Daily Return"] * self.data["bearish_fvg_position"].shift(1)
+        sharpe_ratio = (strategy_daily_returns.mean() / strategy_daily_returns.std()) * np.sqrt(252)
+        print(f"Strategy Sharpe Ratio: {sharpe_ratio:.2f}")
 
     def bearish_fvg_backtest(self, holding_days, wait_days=3):
         """
